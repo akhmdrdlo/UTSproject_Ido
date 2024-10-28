@@ -10,7 +10,6 @@
     tools:context=".MainActivity">
 
     <!-- Logo Aplikasi -->
-
     <!-- Username Field -->
     <ImageView
         android:id="@+id/logo"
