@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString().trim()
 
 
-            // Check for "admin" in both username and password fields
             if (username == "admin" && password == "admin") {
                 val intent = Intent(this, ListFoodActivity::class.java)
                 startActivity(intent)
