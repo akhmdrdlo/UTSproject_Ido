@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class FoodAdapter(
-    private val foodList: List<Food>,
+    private var foodList: List<Food>,
     private val onFoodClickListener: (Food) -> Unit
 ) : RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
 
@@ -36,5 +36,10 @@ class FoodAdapter(
         val foodImage: ImageView = itemView.findViewById(R.id.foodImage)
         val foodName: TextView = itemView.findViewById(R.id.foodName)
         val foodDescription: TextView = itemView.findViewById(R.id.foodDescription)
+    }
+
+    fun updateFoodList(newList: List<Food>) {
+        foodList = newList
+        notifyDataSetChanged()
     }
 }

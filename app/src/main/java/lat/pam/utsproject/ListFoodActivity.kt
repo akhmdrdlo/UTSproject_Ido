@@ -2,6 +2,7 @@ package lat.pam.utsproject
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,8 @@ class ListFoodActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FoodAdapter
     private lateinit var foodList: List<Food>
+    private lateinit var searchEditText: EditText
+    private lateinit var searchButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,7 @@ class ListFoodActivity : AppCompatActivity() {
             Food("Eleph Cappucino", "Kopi cappucino asli yang dibuat dari Kopi Arabica", R.drawable.cappuchino)
         )
 
-        adapter = FoodAdapter(foodList, this::onFoodItemClick) // Pass the click listener function
+        adapter = FoodAdapter(foodList, this::onFoodItemClick)
         recyclerView.adapter = adapter
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -43,11 +46,13 @@ class ListFoodActivity : AppCompatActivity() {
             insets
         }
 
-        val orderButton = findViewById<ImageButton>(R.id.btnOrder) // Assuming you have an order button
+        searchEditText = findViewById(R.id.etSearchBox)
+        val searchButton = findViewById<ImageButton>(R.id.btnSearch)
 
-        orderButton.setOnClickListener {
-            val intent = Intent(this, OrderActivity::class.java)
-            startActivity(intent)
+        searchButton.setOnClickListener {
+            val searchQuery = searchEditText.text.toString().trim().toLowerCase()
+            val filteredList = foodList.filter { it.name.toLowerCase().contains(searchQuery) }
+            adapter.updateFoodList(filteredList) // Update the adapter with filtered data
         }
     }
 
